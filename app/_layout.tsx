@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import GlobalProvider from "@/lib/global-provider";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -22,10 +23,12 @@ export default function RootLayout() {
 
   if (!fontsLoaded) return null;
   return (
-    <GlobalProvider>
-      <SafeAreaProvider>
-        <Stack screenOptions={{ headerShown: false }} />
-      </SafeAreaProvider>
-    </GlobalProvider>
+    <GestureHandlerRootView>
+      <GlobalProvider>
+        <SafeAreaProvider>
+          <Stack screenOptions={{ headerShown: false }} />
+        </SafeAreaProvider>
+      </GlobalProvider>
+    </GestureHandlerRootView>
   );
 }
