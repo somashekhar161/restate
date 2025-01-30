@@ -1,9 +1,11 @@
-import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import { View, Image, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { router, useLocalSearchParams, usePathname } from "expo-router";
 import icons from "@/constants/icons";
 import { useDebouncedCallback } from "use-debounce";
 
+import { StyleSheet } from "react-native";
+import { useGlobalContext } from "@/lib/global-provider";
 const Search = () => {
   const path = usePathname();
   const params = useLocalSearchParams<{ query?: string }>();
@@ -17,6 +19,8 @@ const Search = () => {
     (text: string) => router.setParams({ query: text }),
     500
   );
+  const { handleSheetOpenPress } = useGlobalContext();
+
   return (
     <View
       className=" flex flex-row items-center justify-between w-full px-4 rounded-lg bg-accent-100 border border-primary-100
@@ -31,8 +35,11 @@ const Search = () => {
           className="text-sm font-rubik text-black-300 flex-grow"
         />
       </View>
-      <TouchableOpacity>
-        <Image source={icons.filter} className="size-5" />
+      <TouchableOpacity
+        onPress={handleSheetOpenPress}
+        className="rounded size-10 flex items-center justify-center"
+      >
+        <Image source={icons.filter} className="size-5 " />
       </TouchableOpacity>
     </View>
   );
